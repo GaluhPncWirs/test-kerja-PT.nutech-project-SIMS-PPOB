@@ -7,6 +7,8 @@ import RegisterPage from "./registerPage/page";
 import HomePage from "./homePage/page";
 import TopUpPage from "./topUpPage/page";
 import TransactionPage from "./transactionPage/page";
+import PaymentPage from "./paymentPage/page";
+import AccountPage from "./accountPage/page";
 
 const rootApp = document.getElementById("root");
 
@@ -28,8 +30,16 @@ const route = createBrowserRouter([
     element: <TopUpPage />,
   },
   {
-    path: "/Transaction",
+    path: "/Pembayaran",
+    element: <PaymentPage />,
+  },
+  {
+    path: "/Transaksi",
     element: <TransactionPage />,
+  },
+  {
+    path: "/Akun",
+    element: <AccountPage />,
   },
 ]);
 

@@ -17,12 +17,23 @@ export default function NavigationBar() {
           Top Up
         </Link>
         <Link
-          to="/Transaction"
-          className={`${pathname === "/Transaction" && `text-[#f5261b]`}`}
+          to="/Pembayaran"
+          className={`${pathname === "/Pembayaran" && `text-[#f5261b]`}`}
         >
-          Transaction
+          Pembayaran
         </Link>
-        <Link to="">Akun</Link>
+        <Link
+          to="/Transaksi"
+          className={`${pathname === "/Transaksi" && `text-[#f5261b]`}`}
+        >
+          Transaksi
+        </Link>
+        <Link
+          to="/Akun"
+          className={`${pathname === "/Akun" && `text-[#f5261b]`}`}
+        >
+          Akun
+        </Link>
       </div>
     </nav>
   );
