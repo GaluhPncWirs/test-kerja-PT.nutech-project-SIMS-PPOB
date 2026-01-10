@@ -7,7 +7,10 @@ export default function NavigationBar() {
     <nav className="border-b-2 border-[#e8e8e8] flex justify-between items-center px-16 h-20">
       <NameProject />
       <div className="flex gap-x-10 font-semibold text-xl">
-        <Link to="/" className={`${pathname === "/" && `text-[#f5261b]`}`}>
+        <Link
+          to="/Homepage"
+          className={`${pathname === "/Homepage" && `text-[#f5261b]`}`}
+        >
           Home
         </Link>
         <Link
@@ -15,12 +18,6 @@ export default function NavigationBar() {
           className={`${pathname === "/Topup" && `text-[#f5261b]`}`}
         >
           Top Up
-        </Link>
-        <Link
-          to="/Pembayaran"
-          className={`${pathname === "/Pembayaran" && `text-[#f5261b]`}`}
-        >
-          Pembayaran
         </Link>
         <Link
           to="/Transaksi"

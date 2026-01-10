@@ -3,6 +3,8 @@ import Input from "../../components/input/content";
 import AuthPageLayout from "../../layout/authPage/content";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/loading/content";
+import { fetchApi } from "../../services/api";
 
 export default function LoginPage() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -14,6 +16,7 @@ export default function LoginPage() {
     status: false,
     message: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   async function handleLoginAccount(event: React.FormEvent<HTMLFormElement>) {
@@ -21,17 +24,17 @@ export default function LoginPage() {
     const valueInput = event.target as HTMLFormElement;
 
     try {
-      const req = await fetch(
-        "https://take-home-test-api.nutech-integrasi.com/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: valueInput.email.value,
-            password: valueInput.password.value,
-          }),
-        }
-      );
+      setIsLoading(true);
+      const req = await fetchApi("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: valueInput.email.value,
+          password: valueInput.password.value,
+        }),
+      });
 
       const res = await req.json();
       if (res.status === 102) {
@@ -47,15 +50,27 @@ export default function LoginPage() {
       } else {
         setIsSuccess(true);
         navigate("/Homepage");
-        localStorage.setItem("tokenJWT", res.data.token);
+        localStorage.setItem("loginToken", res.data.token);
       }
     } catch (error) {
       console.error("gagal fetch api", error);
+    } finally {
+      setIsLoading(false);
+      setInterval(() => {
+        setIsWrongPassword({
+          status: false,
+          message: "",
+        });
+        setIsEmailWrong({
+          status: false,
+          message: "",
+        });
+      }, 3000);
     }
   }
 
   return (
-    <div>
+    <div className="relative">
       <AuthPageLayout
         authTitle="Masuk atau buat akun untuk memulai"
         callAction="belum punya akun? registrasi"
@@ -70,6 +85,7 @@ export default function LoginPage() {
             placeholder="masukkan email anda"
             inputId="email"
             isError={false}
+            valueInput={""}
           >
             <AtSign />
           </Input>
@@ -78,6 +94,7 @@ export default function LoginPage() {
             placeholder="masukkan password anda"
             inputId="password"
             isError={false}
+            valueInput={""}
           >
             <Lock />
           </Input>
@@ -90,7 +107,7 @@ export default function LoginPage() {
             <h2>{isEmailWrong.message}</h2>
             <X
               className="cursor-pointer"
-              // onClick={() => setIsSuccess(false)}
+              onClick={() => setIsEmailWrong({ message: "", status: false })}
             />
           </div>
         ) : isWrongPassword.status ? (
@@ -98,7 +115,7 @@ export default function LoginPage() {
             <h2>{isWrongPassword.message}</h2>
             <X
               className="cursor-pointer"
-              // onClick={() => setIsSuccess(false)}
+              onClick={() => setIsWrongPassword({ message: "", status: false })}
             />
           </div>
         ) : (
@@ -113,9 +130,13 @@ export default function LoginPage() {
           )
         )}
       </AuthPageLayout>
+      {isLoading && <Loading />}
     </div>
   );
 }
 
 // pecahseribu123@gmail.com
 // qwertyuiop
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+//   .eyJlbWFpbCI6InBlY2Foc2VyaWJ1MTIzQGdtYWlsLmNvbSIsIm1lbWJlckNvZGUiOiJNSzc0N0kwNSIsImlhdCI6MTc2ODAxMjcxNywiZXhwIjoxNzY4MDU1OTE3fQ
+//   .hVjTbPjgIESvDphlcODQs2w0Ldz4upqvS5DSoBWORog;

@@ -6,6 +6,7 @@ type inputProps = {
   typeInput: string;
   inputId: string;
   isError: boolean;
+  valueInput: string | number;
 };
 
 export default function Input(props: inputProps) {
@@ -15,6 +16,7 @@ export default function Input(props: inputProps) {
     children,
     inputId = "",
     isError = false,
+    valueInput,
   } = props;
   return (
     <div className="relative flex items-center">
@@ -25,6 +27,7 @@ export default function Input(props: inputProps) {
         }`}
         placeholder={placeholder}
         id={inputId}
+        defaultValue={valueInput}
       />
       <div
         className={`absolute left-3.5 size-5 text-[#e8e8e8] ${

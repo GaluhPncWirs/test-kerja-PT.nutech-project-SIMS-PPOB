@@ -4,11 +4,12 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./loginPage/page";
 import RegisterPage from "./registerPage/page";
-import HomePage from "./homePage/page";
 import TopUpPage from "./topUpPage/page";
 import TransactionPage from "./transactionPage/page";
 import PaymentPage from "./paymentPage/page";
 import AccountPage from "./accountPage/page";
+import Home from "../components/home/content";
+import ParentHomePage from "./homePage/page";
 
 const rootApp = document.getElementById("root");
 
@@ -23,7 +24,17 @@ const route = createBrowserRouter([
   },
   {
     path: "/Homepage",
-    element: <HomePage />,
+    element: <ParentHomePage />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "Pembayaran/:service",
+        element: <PaymentPage />,
+      },
+    ],
   },
   {
     path: "/Topup",

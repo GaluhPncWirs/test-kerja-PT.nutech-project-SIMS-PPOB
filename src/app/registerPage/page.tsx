@@ -2,12 +2,15 @@ import { AtSign, User, X } from "lucide-react";
 import Input from "../../components/input/content";
 import AuthPageLayout from "../../layout/authPage/content";
 import { useState } from "react";
+import Loading from "../../components/loading/content";
+import { fetchApi } from "../../services/api";
 
 export default function RegisterPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isNotSamePassword, setIsNotSamePassword] = useState(false);
   const [isEmailAlreadyExists, setIsEmailAlreadyExists] = useState(false);
   const [passwordLess8Character, setPasswordLess8Character] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleRegisterAccount(
     event: React.FormEvent<HTMLFormElement>
@@ -21,19 +24,17 @@ export default function RegisterPage() {
       return;
     } else {
       try {
-        const req = await fetch(
-          "https://take-home-test-api.nutech-integrasi.com/registration",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: valueInput.email.value,
-              first_name: valueInput.firstName.value,
-              last_name: valueInput.lastName.value,
-              password: valueInput.password.value,
-            }),
-          }
-        );
+        setIsLoading(true);
+        const req = await fetchApi("/registration", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: valueInput.email.value,
+            first_name: valueInput.firstName.value,
+            last_name: valueInput.lastName.value,
+            password: valueInput.password.value,
+          }),
+        });
 
         const res = await req.json();
         if (res.message === "Email sudah terdaftar") {
@@ -51,6 +52,7 @@ export default function RegisterPage() {
         console.error("gagal fetch api", error);
       } finally {
         setIsNotSamePassword(false);
+        setIsLoading(false);
       }
     }
   }
@@ -60,7 +62,7 @@ export default function RegisterPage() {
       <AuthPageLayout
         authTitle="lengkapi data untuk membuat akun"
         callAction="sudah punya akun? login"
-        href="/Login"
+        href="/"
       >
         <form
           onSubmit={(e) => handleRegisterAccount(e)}
@@ -131,6 +133,7 @@ export default function RegisterPage() {
             Registrasi
           </button>
         </form>
+        {isLoading && <Loading />}
         {isSuccess && (
           <div className="bg-red-50 mt-5 px-5 py-3 w-10/12 font-semibold flex items-center text-sm justify-between">
             <h2>Registrasi berhasil silahkan login</h2>
