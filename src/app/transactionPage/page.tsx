@@ -84,38 +84,42 @@ export default function TransactionPage() {
   return (
     <ContainerRoot>
       <Header />
-      <div className="mt-7">
-        <h1 className="tracking-wide font-semibold text-xl">Semua Transaksi</h1>
+      <div className="mt-5 sm:mt-7 px-4 md:px-0">
+        <h1 className="tracking-wide font-semibold text-lg sm:text-xl">
+          Semua Transaksi
+        </h1>
 
-        <div className="mt-5 grid grid-cols-1 gap-y-7">
+        <div className="mt-4 sm:mt-5 grid grid-cols-1 gap-y-4 sm:gap-y-5 md:gap-y-7">
           {sortedData.map((trx) => (
             <div
               key={trx.invoice_number}
-              className="border-2 border-[#e8e8e8] py-3 px-7"
+              className="border-2 border-[#e8e8e8] py-3 sm:py-3.5 px-4 sm:px-6 md:px-7 rounded-lg hover:border-gray-300 transition-colors"
             >
-              <div className="flex justify-between items-center mb-2.5">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-2 sm:mb-2.5">
                 <div
-                  className={`flex gap-x-3 items-center ${
+                  className={`flex gap-x-2 sm:gap-x-3 items-center ${
                     trx.transaction_type === "PAYMENT"
                       ? "text-[#f5261b]"
                       : "text-emerald-500"
                   }`}
                 >
                   {trx.transaction_type === "PAYMENT" ? (
-                    <MinusIcon className="size-6" />
+                    <MinusIcon className="size-5 sm:size-6 flex-0" />
                   ) : (
-                    <PlusIcon className="size-6" />
+                    <PlusIcon className="size-5 sm:size-6 flex-0" />
                   )}
 
-                  <h3 className="text-xl font-semibold tracking-wider">
+                  <h3 className="text-lg sm:text-xl font-semibold tracking-wider break-all">
                     {formatRupiah(trx.total_amount)}
                   </h3>
                 </div>
 
-                <h3 className="text-sm font-medium">{trx.description}</h3>
+                <h3 className="text-xs sm:text-sm font-medium text-gray-700 sm:text-right">
+                  {trx.description}
+                </h3>
               </div>
 
-              <h4 className="text-slate-400 tracking-wide text-sm">
+              <h4 className="text-slate-400 tracking-wide text-xs sm:text-sm">
                 {formatDate(trx.created_on)}
               </h4>
             </div>
@@ -127,20 +131,24 @@ export default function TransactionPage() {
         {!isLoading && hasMore && (
           <button
             onClick={handleShowMore}
-            className="text-[#f5261b] font-semibold tracking-wide mt-5 text-lg text-center w-full hover:underline"
+            className="text-[#f5261b] font-semibold tracking-wide mt-4 sm:mt-5 text-base sm:text-lg text-center w-full hover:underline active:text-red-600 py-2 transition-colors"
           >
             Show more
           </button>
         )}
 
         {!isLoading && !hasMore && sortedData.length > 0 && (
-          <p className="text-center mt-5 text-gray-500 text-sm">
+          <p className="text-center mt-4 sm:mt-5 text-gray-500 text-xs sm:text-sm">
             Tidak ada transaksi lainnya
           </p>
         )}
 
         {!isLoading && sortedData.length === 0 && (
-          <p className="text-center mt-5 text-gray-500">Belum ada transaksi</p>
+          <div className="text-center mt-8 sm:mt-10 py-8 sm:py-12">
+            <p className="text-gray-500 text-sm sm:text-base">
+              Belum ada transaksi
+            </p>
+          </div>
         )}
       </div>
     </ContainerRoot>
