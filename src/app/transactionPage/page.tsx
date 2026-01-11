@@ -29,7 +29,7 @@ export default function TransactionPage() {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [offset, setOffset] = useState(0);
-
+  console.log(historyTransaksi);
   const limit = 5;
 
   async function fetchTransaksi(offset: number) {

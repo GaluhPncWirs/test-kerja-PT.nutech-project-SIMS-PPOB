@@ -8,19 +8,12 @@ import { formatRupiah } from "../../../hooks/useFormatRupiah/formatRupiah";
 import ModalBox from "../../../layout/modalBox/content";
 import Loading from "../../../components/loading/content";
 
-type serviceDataType = {
-  service_code: string;
-  service_name: string;
-  service_icon: string;
-  service_tariff: number;
-};
-
 export default function PaymentPage() {
   const token = useGetToken();
   const { service } = useParams();
   const { services, loading } = useGetService();
 
-  const serviceData: serviceDataType = services.find(
+  const serviceData: any = services.find(
     (item: any) => item.service_code === service
   );
 
