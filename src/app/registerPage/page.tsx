@@ -1,5 +1,5 @@
 import { AtSign, Lock, User, X } from "lucide-react";
-import Input from "../../components/input/content";
+import Input from "../../layout/input/content";
 import AuthPageLayout from "../../layout/authPage/content";
 import { useState } from "react";
 import Loading from "../../components/loading/content";

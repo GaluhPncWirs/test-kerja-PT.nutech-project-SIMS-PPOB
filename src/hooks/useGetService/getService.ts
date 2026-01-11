@@ -9,6 +9,7 @@ export function useGetService() {
   useEffect(() => {
     async function getDataUser() {
       try {
+        setLoading(true);
         const req = await fetch(
           "https://take-home-test-api.nutech-integrasi.com/services",
           {

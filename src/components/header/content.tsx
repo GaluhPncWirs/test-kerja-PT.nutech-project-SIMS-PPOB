@@ -1,51 +1,34 @@
 import { Eye, EyeClosed } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useGetToken } from "../../hooks/useGetToken/getToken";
-
-type dataUser = {
-  email: string;
-  first_name: string;
-  last_name: string;
-  profile_image: string;
-};
+import { fetchApi } from "../../services/api";
+import { useGetDataUser } from "../../hooks/useGetUserData/getUserData";
 
 export default function Header() {
-  const [dataUser, setDataUser] = useState<dataUser | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [balance, setBalance] = useState<number | null>(null);
   // const [isTokenExpired, setIsTokenExpired] = useState(false);
   const token = useGetToken();
   const [hideBalance, setHideBalance] = useState(false);
+  const dataUser = useGetDataUser();
 
   useEffect(() => {
     async function getDataUser() {
       try {
         setIsLoading(true);
-        const [dataUser, balance] = await Promise.all([
-          fetch("https://take-home-test-api.nutech-integrasi.com/profile", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }),
-          fetch("https://take-home-test-api.nutech-integrasi.com/balance", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }),
-        ]);
+        const req = await fetchApi("/balance", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const res = await req.json();
 
-        const responDataUser = await dataUser.json();
-        const responBalance = await balance.json();
-
-        if (!responBalance || !responDataUser) {
+        if (!res) {
           alert("Token tidak tidak valid atau kadaluwarsa");
         } else {
-          setDataUser(responDataUser.data);
-          setBalance(responBalance.data.balance);
+          setBalance(res.data.balance);
         }
       } catch (error) {
         console.error("gagal fetch api", error);
@@ -84,11 +67,7 @@ export default function Header() {
         <div className="flex flex-col md:flex-row items-stretch gap-3 md:gap-x-3 min-h-40 p-4 md:p-0">
           <div className="md:basis-1/2 h-auto md:h-40 px-4 md:px-7 py-4 md:py-0 flex flex-col justify-center gap-y-3 md:gap-y-4 bg-white md:bg-transparent rounded-lg md:rounded-none">
             <img
-              src={
-                dataUser?.profile_image
-                  ? dataUser.profile_image
-                  : "/images/globalImg/Profile Photo.png"
-              }
+              src={dataUser?.profile_image}
               alt="Profile"
               className="size-12 sm:size-14 rounded-full"
               loading="eager"

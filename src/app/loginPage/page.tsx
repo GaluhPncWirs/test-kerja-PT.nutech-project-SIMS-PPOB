@@ -1,5 +1,5 @@
 import { AtSign, Lock, X } from "lucide-react";
-import Input from "../../components/input/content";
+import Input from "../../layout/input/content";
 import AuthPageLayout from "../../layout/authPage/content";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -134,9 +134,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-// pecahseribu123@gmail.com
-// qwertyuiop
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-//   .eyJlbWFpbCI6InBlY2Foc2VyaWJ1MTIzQGdtYWlsLmNvbSIsIm1lbWJlckNvZGUiOiJNSzc0N0kwNSIsImlhdCI6MTc2ODAxMjcxNywiZXhwIjoxNzY4MDU1OTE3fQ
-//   .hVjTbPjgIESvDphlcODQs2w0Ldz4upqvS5DSoBWORog;

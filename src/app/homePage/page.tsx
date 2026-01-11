@@ -5,8 +5,10 @@ import { Outlet } from "react-router-dom";
 export default function ParentHomePage() {
   return (
     <ContainerRoot>
-      <Header />
-      <Outlet />
+      <div className="pt-5 sm:pt-7 md:pt-20">
+        <Header />
+        <Outlet />
+      </div>
     </ContainerRoot>
   );
 }

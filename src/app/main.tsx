@@ -6,10 +6,10 @@ import LoginPage from "./loginPage/page";
 import RegisterPage from "./registerPage/page";
 import TopUpPage from "./topUpPage/page";
 import TransactionPage from "./transactionPage/page";
-import PaymentPage from "./paymentPage/page";
 import AccountPage from "./accountPage/page";
-import Home from "../components/home/content";
+import Home from "./homePage/contentHomepage/content";
 import ParentHomePage from "./homePage/page";
+import PaymentPage from "./homePage/contentPaymentPage/page";
 
 const rootApp = document.getElementById("root");
 
@@ -39,10 +39,6 @@ const route = createBrowserRouter([
   {
     path: "/Topup",
     element: <TopUpPage />,
-  },
-  {
-    path: "/Pembayaran",
-    element: <PaymentPage />,
   },
   {
     path: "/Transaksi",

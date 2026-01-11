@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useGetToken } from "../../hooks/useGetToken/getToken";
-import { fetchApi } from "../../services/api";
-import ModalBox from "../../layout/modalBox/content";
 import { Check, Wallet } from "lucide-react";
 import { useState } from "react";
-import Loading from "../../components/loading/content";
-import { useGetService } from "../../hooks/useGetService/getService";
-import { formatRupiah } from "../../hooks/useFormatRupiah/formatRupiah";
+import { useGetToken } from "../../../hooks/useGetToken/getToken";
+import { useGetService } from "../../../hooks/useGetService/getService";
+import { fetchApi } from "../../../services/api";
+import { formatRupiah } from "../../../hooks/useFormatRupiah/formatRupiah";
+import ModalBox from "../../../layout/modalBox/content";
+import Loading from "../../../components/loading/content";
 
 type serviceDataType = {
   service_code: string;

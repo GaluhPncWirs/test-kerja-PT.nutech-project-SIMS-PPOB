@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useGetService } from "../../hooks/useGetService/getService";
+import { useGetService } from "../../../hooks/useGetService/getService";
 
 const promoMenarik: any = [
   {
@@ -50,6 +50,7 @@ export default function Home() {
                 src={item.service_icon}
                 alt="services"
                 className="size-12 sm:size-14 md:size-16 rounded-lg"
+                loading="eager"
               />
               <h1 className="w-full text-center mt-2 text-[10px] sm:text-xs leading-tight px-1">
                 {item.service_name}
@@ -59,7 +60,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Promo Section */}
       <div className="mt-8 md:mt-10 px-4 md:px-0">
         <h1 className="font-semibold text-lg sm:text-xl tracking-wide">
           Temukan promo menarik
@@ -70,7 +70,8 @@ export default function Home() {
               key={i}
               src={item.srcImg}
               alt={item.altImg}
-              className="h-32 sm:h-40 md:h-48 lg:h-auto min-w-[200px] sm:min-w-[250px] md:min-w-[300px] rounded-lg object-cover flex-shrink-0"
+              className="h-32 sm:h-40 md:h-48 lg:h-auto min-w-50 sm:min-w-62.5 md:min-w-75 rounded-lg object-cover shrink-0"
+              loading="eager"
             />
           ))}
         </div>
